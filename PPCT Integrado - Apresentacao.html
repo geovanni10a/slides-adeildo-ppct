@@ -1,0 +1,2165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PPC&T Integrado · Apresentação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,0..100&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script src="deck-stage.js"></script>
+<style>
+  :root {
+    --bg: #f3eee3;
+    --bg-deep: #ebe5d6;
+    --card: #fbf8f0;
+    --ink: #141211;
+    --ink-soft: #3a352e;
+    --muted: #6a635a;
+    --rule: #c6bda8;
+    --rule-strong: #857c6b;
+    --accent: #7a2e1f;
+    --accent-ink: #4e1d13;
+    --accent-soft: #c58878;
+    --accent-wash: #ecd7cf;
+    --highlight: #b8872a;
+    --highlight-wash: #efe2b8;
+    --deep: #1c2a3a;
+    --code-bg: #e3dcc8;
+    --code-ink: #2d1b14;
+  }
+
+  * , *::before, *::after { box-sizing: border-box; }
+
+  html, body { margin: 0; padding: 0; background: #141211; }
+
+  deck-stage { background: #141211; }
+
+  section {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 22px;
+    line-height: 1.55;
+    font-weight: 400;
+    overflow: hidden;
+    padding: 80px 120px 80px 120px;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(122, 46, 31, 0.04) 0, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(28, 42, 58, 0.035) 0, transparent 45%);
+  }
+
+  /* Paper grain overlay */
+  section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.07  0 0 0 0 0.06  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    z-index: 1;
+  }
+
+  section > * { position: relative; z-index: 2; }
+
+  /* Slide chrome */
+  .chrome {
+    position: absolute;
+    top: 48px;
+    left: 120px;
+    right: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    z-index: 3;
+  }
+  .chrome .brand-mini {
+    display: flex; align-items: center; gap: 12px;
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .chrome .brand-mini svg { width: 22px; height: 22px; display: block; }
+  .chrome .sec-tag { color: var(--accent); }
+
+  .foot-chrome {
+    position: absolute;
+    bottom: 48px;
+    left: 120px;
+    right: 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    z-index: 3;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+    font-variation-settings: "opsz" 96, "SOFT" 40;
+    line-height: 1.08;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  p { margin: 0 0 0.9em 0; max-width: 72ch; }
+  strong { font-weight: 600; color: var(--ink); }
+  em { font-style: italic; }
+  code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.92em;
+    padding: 0.08em 0.38em;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    border-radius: 3px;
+    letter-spacing: -0.005em;
+  }
+
+  .sec-roman {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 96px;
+    color: var(--accent);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    display: block;
+    font-variation-settings: "opsz" 144;
+  }
+  .sec-kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  /* ===================== SLIDE 4 · Problemática split (v2 — dedicated slides) ===================== */
+  .prob-split {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 56px;
+    margin-top: 18px;
+    max-width: 1760px;
+  }
+  .prob-split-meta {
+    border-left: 2px solid var(--accent);
+    padding: 14px 0 14px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    align-self: start;
+  }
+  .prob-split-meta.especifico { border-left-color: var(--deep); }
+  .psm-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .prob-split-meta.especifico .psm-tag { color: var(--deep); }
+  .psm-tag .dot { width: 10px; height: 10px; background: currentColor; display: inline-block; border-radius: 50%; }
+  .psm-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 96px;
+    line-height: 0.9;
+    color: var(--ink);
+    font-variation-settings: "opsz" 144, "SOFT" 60;
+  }
+  .psm-hint {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin: 0;
+    max-width: 26ch;
+  }
+  .prob-split-body { display: flex; flex-direction: column; gap: 26px; }
+  .prob-split-lead {
+    font-size: 26px;
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 62ch;
+    margin: 0;
+    font-weight: 400;
+  }
+  .prob-split-card {
+    background: var(--card);
+    padding: 36px 40px;
+    border-left: 3px solid var(--accent);
+  }
+  .prob-split-card.especifico { border-left-color: var(--deep); }
+  .prob-split-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 34px;
+    line-height: 1.2;
+    color: var(--ink);
+    margin: 0 0 18px 0;
+    font-weight: 500;
+    font-variation-settings: "opsz" 144, "SOFT" 50;
+  }
+  .prob-split-card p {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0 0 12px 0;
+  }
+  .prob-split-card p:last-child { margin-bottom: 0; }
+  .prob-split-next {
+    margin-top: 8px;
+    display: inline-flex; align-items: center; gap: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    align-self: flex-start;
+    padding: 12px 18px;
+    border: 1px solid var(--rule);
+  }
+  .prob-split-pull {
+    font-family: 'Fraunces', serif;
+    font-size: 24px !important;
+    line-height: 1.45 !important;
+    color: var(--ink) !important;
+    max-width: 60ch !important;
+    font-style: italic;
+    border-left: 2px solid var(--deep);
+    padding-left: 22px !important;
+    margin-top: 12px !important;
+  }
+
+  /* ===================== SLIDE 1 · Cover (v2 — identity) ===================== */
+  .cover-v2 {
+    padding: 0 !important;
+    background:
+      radial-gradient(ellipse 1100px 700px at 18% 12%, rgba(122,46,31,0.05), transparent 70%),
+      radial-gradient(ellipse 900px 600px at 82% 88%, rgba(184,135,42,0.04), transparent 70%),
+      var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+  .cover-v2::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(122,46,31,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(122,46,31,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+  }
+  .cover-v2-frame {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    padding: 50px 110px 40px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 0;
+  }
+  .cover-v2-chrome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--rule);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .cover-v2-brand {
+    display: flex; align-items: center; gap: 14px;
+    font-weight: 600; color: var(--ink);
+  }
+  .cover-v2-brand svg { width: 32px; height: 32px; }
+  .cover-v2-meta { opacity: 0.75; }
+
+  .cover-v2-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 26px;
+    padding: 24px 0;
+  }
+  .cover-v2-eyebrow {
+    display: flex; align-items: center; gap: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .cover-v2-eyebrow .rule {
+    width: 72px; height: 1px; background: var(--accent);
+    display: inline-block;
+  }
+  .cover-v2-title {
+    font-family: 'Fraunces', serif;
+    font-size: 92px;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+    color: var(--ink);
+    margin: 0;
+    font-variation-settings: "opsz" 144, "SOFT" 40;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .cover-v2-title em {
+    font-style: italic;
+    color: var(--accent);
+    font-variation-settings: "opsz" 144, "SOFT" 80;
+  }
+  .cover-v2-sub {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    max-width: 38ch;
+    margin: 0;
+    font-weight: 300;
+  }
+  .cover-v2-sub code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78em;
+    background: rgba(122,46,31,0.08);
+    color: var(--accent);
+    padding: 2px 10px;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+  .cover-v2-authors {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    padding-top: 22px;
+    margin-top: 6px;
+    border-top: 1px solid var(--rule);
+    max-width: 1400px;
+  }
+  .cav-col { display: flex; flex-direction: column; gap: 6px; }
+  .cav-lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .cav-name {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    line-height: 1.25;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .cav-sub {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  .cover-v2-foot { display: flex; flex-direction: column; gap: 20px; }
+  .cv-foot-line { height: 1px; background: var(--rule); }
+  .cv-foot-grid {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 80px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .cv-foot-grid > div { display: flex; gap: 14px; align-items: baseline; }
+  .cvf-k { letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.9; }
+  .cvf-v { color: var(--ink); letter-spacing: 0.04em; }
+
+  /* Legacy cover tokens (kept for closing reuse) */
+  .cover { padding: 0 !important; display: grid; grid-template-columns: 1.25fr 1fr; }
+  .cover-left {
+    padding: 110px 80px 90px 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid var(--rule);
+  }
+  .cover-kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .cover-kicker::before {
+    content: "";
+    width: 56px;
+    height: 1px;
+    background: var(--accent);
+    display: inline-block;
+  }
+  .cover-title {
+    font-size: 84px;
+    line-height: 1.03;
+    letter-spacing: -0.018em;
+    font-weight: 450;
+    max-width: 22ch;
+    margin: 0 0 32px 0;
+  }
+  .cover-title em {
+    font-style: italic;
+    color: var(--accent);
+    font-variation-settings: "opsz" 144, "SOFT" 60;
+  }
+  .cover-title code {
+    font-size: 0.62em;
+    background: transparent;
+    padding: 0;
+    color: var(--accent);
+    font-style: normal;
+  }
+  .cover-lead {
+    font-size: 22px;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    line-height: 1.55;
+  }
+  .cover-right {
+    padding: 110px 120px 90px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--bg-deep);
+  }
+  .tech-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-bottom: 40px;
+  }
+  .tech-cell {
+    background: var(--card);
+    padding: 22px 24px;
+  }
+  .tech-cell .lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .tech-cell .val { font-size: 17px; font-weight: 500; color: var(--ink); }
+  .author-slab {
+    padding: 20px 24px;
+    border-left: 2px solid var(--accent);
+    background: var(--card);
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .author-slab strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 17px;
+  }
+
+  /* ===================== Standard header slide ===================== */
+  .head-block {
+    margin-top: 60px;
+    margin-bottom: 28px;
+  }
+  .head-block h2 {
+    font-size: 64px;
+    line-height: 1.05;
+    max-width: none;
+  }
+
+  /* ===================== Architecture slide ===================== */
+  .arch-wrap {
+    margin-top: 20px;
+    padding: 24px 32px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .arch-wrap svg { max-height: 470px; }
+  .arch-wrap svg { display: block; width: 100%; height: auto; }
+  .legend {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 28px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .legend span::before {
+    content: "";
+    display: inline-block;
+    width: 30px;
+    height: 2px;
+    vertical-align: middle;
+    margin-right: 10px;
+    background: var(--accent);
+  }
+  .legend .l-soap::before { background: var(--deep); }
+  .legend .l-wsdl::before { background: var(--highlight); }
+  .legend .l-sql::before { background: #4c6b4d; }
+
+  /* ===================== Tema slide ===================== */
+  .tema-body p {
+    font-size: 26px;
+    line-height: 1.55;
+    max-width: 78ch;
+    color: var(--ink-soft);
+  }
+  .tema-body p strong { color: var(--ink); }
+
+  /* ===================== Problemática ===================== */
+  .prob-intro { max-width: 80ch; font-size: 22px; color: var(--ink-soft); margin-bottom: 28px; }
+  .funnel { display: grid; gap: 12px; }
+  .funnel-item {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    padding: 16px 30px;
+    border-radius: 4px;
+    max-width: none;
+  }
+  .funnel-item.amplo { border-left: 4px solid var(--deep); }
+  .funnel-item.especifico {
+    border-left: 4px solid var(--accent);
+    margin-left: 80px;
+    background: linear-gradient(180deg, var(--card) 0%, #f6ebe5 100%);
+  }
+  .funnel-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .funnel-tag .dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--deep);
+  }
+  .funnel-item.especifico .funnel-tag .dot { background: var(--accent); }
+  .funnel-item h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  .funnel-item p {
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.45;
+    max-width: none;
+    margin-bottom: 6px;
+  }
+  .funnel-item p:last-child { margin-bottom: 0; }
+  .funnel-chev {
+    display: flex;
+    justify-content: center;
+    color: var(--accent);
+    opacity: 0.6;
+    margin: -4px 0;
+  }
+
+  .pull {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.3;
+    color: var(--accent-ink);
+    border-left: 3px solid var(--accent);
+    padding: 4px 0 4px 20px;
+    margin: 14px 0 0 0;
+    max-width: 100ch;
+  }
+
+  /* ===================== Context cards ===================== */
+  .ctx-intro { max-width: 80ch; font-size: 22px; color: var(--ink-soft); margin-bottom: 24px; }
+  .ctx-group-head {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 20px;
+  }
+  .ctx-group-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+  }
+  .ctx-group-title {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--ink);
+  }
+  .ctx-group-desc {
+    font-size: 15px;
+    color: var(--muted);
+    margin-left: auto;
+    max-width: 44ch;
+    text-align: right;
+  }
+
+  .ctx-cards {
+    display: grid;
+    gap: 22px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ctx-cards.single { grid-template-columns: 1fr; max-width: 1000px; margin: 0 auto; }
+
+  .ctx-card {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0 24px;
+    padding: 22px 24px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    align-items: start;
+  }
+
+  .ctx-year {
+    font-family: 'Fraunces', serif;
+    font-size: 44px;
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 144;
+  }
+  .ctx-year-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 6px;
+  }
+
+  .ctx-body h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+  .ctx-cite {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 12px;
+  }
+  .ctx-body p {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-bottom: 8px;
+    max-width: none;
+  }
+  .ctx-body p:last-of-type { margin-bottom: 10px; }
+  .ctx-rel {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 12px;
+    background: var(--highlight-wash);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent-ink);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 2px;
+  }
+  .ctx-rel.pivot { background: var(--accent); color: var(--bg); }
+  .ctx-rel.fonte { background: var(--deep); color: var(--bg); }
+
+  /* ===================== Problema ===================== */
+  .problema-question {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 46px;
+    line-height: 1.25;
+    color: var(--accent-ink);
+    border-left: 4px solid var(--accent);
+    padding: 10px 0 10px 40px;
+    margin: 20px 0 48px 0;
+    max-width: 50ch;
+  }
+  .just-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 12px;
+  }
+  .just-grid h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+  .just-grid p {
+    font-size: 20px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: none;
+  }
+
+  /* ===================== Objetivos ===================== */
+  .obj-general {
+    background: var(--card);
+    border-left: 3px solid var(--accent);
+    padding: 26px 36px;
+    margin: 8px 0 32px;
+    border-radius: 0 4px 4px 0;
+  }
+  .obj-general h3 {
+    font-size: 13px;
+    font-family: 'IBM Plex Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  .obj-general p {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: none;
+  }
+  .obj-general strong { color: var(--accent-ink); font-weight: 600; }
+
+  .obj-specific-title {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+  .obj-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: obj;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 48px;
+  }
+  .obj-list li {
+    counter-increment: obj;
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 0 16px;
+    padding: 16px 0;
+    border-top: 1px solid var(--rule);
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .obj-list li::before {
+    content: counter(obj, decimal-leading-zero);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    padding-top: 3px;
+  }
+  .obj-list li strong { color: var(--accent-ink); font-weight: 600; }
+
+  /* ===================== Metodologia ===================== */
+  .meth-body p {
+    font-size: 20px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: 92ch;
+    margin-bottom: 18px;
+  }
+  .meth-body p strong { color: var(--ink); }
+  .meth-grid {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .meth-cell {
+    background: var(--card);
+    padding: 26px 32px;
+  }
+  .meth-cell h4 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .meth-cell h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+  .meth-cell p { font-size: 16px; color: var(--ink-soft); line-height: 1.5; margin: 0; max-width: none; }
+
+  /* ===================== Trajetória ===================== */
+  .traj-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+    counter-reset: traj;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 56px;
+  }
+  .traj-item {
+    counter-increment: traj;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 0 20px;
+    padding: 20px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .traj-item::before {
+    content: counter(traj);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 42px;
+    color: var(--accent);
+    line-height: 1;
+    padding-top: 4px;
+    font-weight: 300;
+  }
+  .traj-item h3 { font-size: 22px; margin-bottom: 8px; }
+  .traj-item p { color: var(--ink-soft); font-size: 15px; line-height: 1.5; margin: 0; max-width: none; }
+
+  /* ===================== Referências ===================== */
+  .ref-intro { color: var(--ink-soft); max-width: 80ch; font-size: 18px; margin-bottom: 14px; }
+  .ref-legend {
+    margin-bottom: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .ref-legend span { display: inline-flex; align-items: center; gap: 8px; }
+  .tag-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    display: inline-block;
+    background: var(--muted);
+  }
+  .tag-dot.pivot { background: var(--accent); }
+  .tag-dot.fonte { background: var(--deep); }
+  .tag-dot.correlata { background: var(--highlight); }
+
+  .ref-list {
+    padding: 0;
+    list-style: none;
+    counter-reset: ref;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 44px;
+  }
+  .ref-entry {
+    counter-increment: ref;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 0 12px;
+    padding: 14px 0 0;
+    border-top: 1px solid var(--rule);
+  }
+  .ref-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    padding-top: 3px;
+  }
+  .ref-num::before { content: "["; opacity: 0.6; }
+  .ref-num::after { content: "]"; opacity: 0.6; }
+  .ref-text {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: 6px;
+    max-width: none;
+    padding-left: 0;
+    text-indent: 0;
+  }
+  .ref-text .surname {
+    font-variant: small-caps;
+    text-transform: lowercase;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .ref-text em { font-style: italic; }
+  .ref-text a {
+    color: var(--accent);
+    border-bottom: 1px dotted var(--accent-soft);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    word-break: break-all;
+    text-decoration: none;
+  }
+  .ref-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .ref-chip {
+    padding: 3px 9px;
+    border-radius: 2px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    color: var(--muted);
+  }
+  .ref-chip.role-pivot { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+  .ref-chip.role-fonte { background: var(--deep); border-color: var(--deep); color: var(--bg); }
+  .ref-chip.role-correlata { background: var(--highlight-wash); border-color: #d8c07b; color: var(--accent-ink); }
+
+  .ref-foot-note {
+    margin-top: 20px;
+    padding: 14px 20px;
+    background: var(--card);
+    border-left: 2px solid var(--rule-strong);
+    font-size: 13px;
+    color: var(--muted);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-style: italic;
+  }
+
+  /* ===================== Closing slide ===================== */
+  .closing { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .closing h1 {
+    font-size: 120px;
+    font-variation-settings: "opsz" 144, "SOFT" 60;
+    font-style: italic;
+    color: var(--ink);
+    max-width: 16ch;
+    margin-bottom: 28px;
+  }
+  .closing h1 em { color: var(--accent); font-style: italic; }
+  .closing p {
+    font-size: 22px;
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 0 auto 36px;
+  }
+  .closing .author-slab {
+    max-width: 780px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  /* Closing v2 — giant "Obrigado" */
+  .closing-v2 {
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(ellipse 1000px 600px at 50% 50%, rgba(122,46,31,0.05), transparent 70%),
+      var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+  .closing-v2::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(122,46,31,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(122,46,31,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+  }
+  .closing-v2-wrap {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 60px;
+    text-align: center;
+  }
+  .closing-v2-mark {
+    display: flex; align-items: center; gap: 22px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 15px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .closing-v2-mark .cv2-line {
+    width: 90px; height: 1px; background: var(--accent);
+    display: inline-block;
+  }
+  .closing-v2-word {
+    font-family: 'Fraunces', serif !important;
+    font-size: 320px !important;
+    line-height: 0.95 !important;
+    letter-spacing: -0.035em;
+    font-weight: 400;
+    color: var(--ink);
+    margin: 0 !important;
+    max-width: none !important;
+    font-variation-settings: "opsz" 144, "SOFT" 50;
+  }
+  .closing-v2-word em {
+    font-style: italic;
+    color: var(--accent);
+    font-variation-settings: "opsz" 144, "SOFT" 90;
+  }
+
+</style>
+</head>
+<body>
+
+<deck-stage>
+
+  <!-- ============ 1 · COVER ============ -->
+  <section class="cover cover-v2" data-screen-label="01 Capa">
+    <div class="cover-v2-frame">
+      <header class="cover-v2-chrome">
+        <div class="cover-v2-brand">
+          <svg viewBox="0 0 40 40" aria-hidden="true">
+            <circle cx="20" cy="20" r="18" fill="none" stroke="#7a2e1f" stroke-width="1.5"/>
+            <path d="M 12 22 L 20 10 L 28 22" fill="none" stroke="#141211" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="20" cy="26" r="2" fill="#7a2e1f"/>
+          </svg>
+          <span>PPC&amp;T Integrado</span>
+        </div>
+        <div class="cover-v2-meta">Pré-projeto de pesquisa · 2026</div>
+      </header>
+
+      <div class="cover-v2-body">
+        <div class="cover-v2-eyebrow">
+          <span class="rule"></span>
+          <span>Universidade Federal do Amapá · Metodologia do Trabalho Científico</span>
+        </div>
+
+        <h1 class="cover-v2-title">
+          Sincronização de Currículos Lattes<br>
+          em <em>Painel Institucional</em>
+        </h1>
+
+        <p class="cover-v2-sub">
+          Integração <code>SOAP/WSDL</code> e implantação em Oracle Cloud
+          para consolidação da produção científica e tecnológica da UNIFAP.
+        </p>
+
+        <div class="cover-v2-authors">
+          <div class="cav-col">
+            <div class="cav-lbl">Autoria</div>
+            <div class="cav-name">Daniela Marques Haber Sepeda</div>
+            <div class="cav-name">Geovanni Rodrigues da Silva</div>
+          </div>
+          <div class="cav-col">
+            <div class="cav-lbl">Orientação</div>
+            <div class="cav-name">Prof. Adeildo Telles da Silva</div>
+          </div>
+          <div class="cav-col">
+            <div class="cav-lbl">Instituição</div>
+            <div class="cav-name">Universidade Federal do Amapá</div>
+            <div class="cav-sub">Metodologia do Trabalho Científico · 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="cover-v2-foot">
+        <div class="cv-foot-line"></div>
+        <div class="cv-foot-grid">
+          <div><span class="cvf-k">Nº</span><span class="cvf-v">01</span></div>
+          <div><span class="cvf-k">Tema</span><span class="cvf-v">Integração institucional</span></div>
+          <div><span class="cvf-k">Formato</span><span class="cvf-v">Apresentação · 14 slides</span></div>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ============ 2 · ARQUITETURA ============ -->
+  <section data-screen-label="02 Arquitetura">
+    <div class="chrome">
+      <div class="brand-mini">
+        <svg viewBox="0 0 40 40" aria-hidden="true">
+          <circle cx="20" cy="20" r="18" fill="none" stroke="#7a2e1f" stroke-width="1.5"/>
+          <path d="M 12 22 L 20 10 L 28 22" fill="none" stroke="#141211" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="20" cy="26" r="2" fill="#7a2e1f"/>
+        </svg>
+        PPC&amp;T Integrado
+      </div>
+      <div><span class="sec-tag">I · Arquitetura</span></div>
+    </div>
+
+    <div class="head-block">
+      <span class="sec-roman">I</span>
+      <span class="sec-kicker">Visão técnica</span>
+      <h2>Arquitetura da Solução</h2>
+    </div>
+
+    <p style="font-size: 20px; color: var(--ink-soft); max-width: 1680px; line-height: 1.55;">
+      O fluxo técnico da solução articula o painel web institucional, o
+      serviço de sincronização, o proxy <code>WSCurriculo</code> da UNIFAP,
+      o serviço remoto do CNPq e a persistência em <code>MariaDB/MySQL</code>.
+      A sincronização parte da solicitação institucional, percorre a cadeia
+      de integração <code>SOAP</code> e retorna ao ambiente local sob a
+      forma de <code>XML</code> processado e persistido.
+    </p>
+
+    <div class="arch-wrap">
+      <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagrama de arquitetura da solução">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#3a352e"/>
+          </marker>
+          <marker id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#7a2e1f"/>
+          </marker>
+        </defs>
+        <g opacity="0.3">
+          <line x1="0" y1="90" x2="760" y2="90" stroke="#c6bda8" stroke-dasharray="2 4"/>
+          <line x1="0" y1="180" x2="760" y2="180" stroke="#c6bda8" stroke-dasharray="2 4"/>
+          <line x1="0" y1="270" x2="760" y2="270" stroke="#c6bda8" stroke-dasharray="2 4"/>
+        </g>
+        <g>
+          <rect x="20" y="150" width="130" height="60" fill="#fbf8f0" stroke="#141211" stroke-width="1.2"/>
+          <text x="85" y="175" text-anchor="middle" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="#141211">Usuário institucional</text>
+          <text x="85" y="192" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#6a635a">navegador</text>
+        </g>
+        <line x1="150" y1="180" x2="205" y2="180" stroke="#7a2e1f" stroke-width="1.6" marker-end="url(#arrow-accent)"/>
+        <text x="177" y="172" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#7a2e1f" letter-spacing="1">ACESSO</text>
+        <g>
+          <rect x="210" y="150" width="150" height="60" fill="#fbf8f0" stroke="#141211" stroke-width="1.2"/>
+          <text x="285" y="172" text-anchor="middle" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="#141211">Painel web</text>
+          <text x="285" y="188" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#6a635a">Laravel + Inertia · React</text>
+        </g>
+        <line x1="360" y1="180" x2="415" y2="180" stroke="#7a2e1f" stroke-width="1.6" marker-end="url(#arrow-accent)"/>
+        <text x="387" y="172" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#7a2e1f" letter-spacing="1">REST</text>
+        <g>
+          <rect x="420" y="150" width="160" height="60" fill="#fbf8f0" stroke="#141211" stroke-width="1.2"/>
+          <text x="500" y="172" text-anchor="middle" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="#141211">Serviço de sincronização</text>
+          <text x="500" y="188" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#6a635a">FastAPI</text>
+        </g>
+        <line x1="580" y1="180" x2="630" y2="180" stroke="#1c2a3a" stroke-width="1.6" marker-end="url(#arrow)"/>
+        <text x="605" y="172" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#1c2a3a" letter-spacing="1">SOAP</text>
+        <g>
+          <rect x="635" y="150" width="115" height="60" fill="#fbf8f0" stroke="#141211" stroke-width="1.2"/>
+          <text x="692" y="172" text-anchor="middle" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="#141211">Proxy UNIFAP</text>
+          <text x="692" y="188" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#6a635a">WSCurriculo</text>
+        </g>
+        <line x1="692" y1="210" x2="692" y2="260" stroke="#b8872a" stroke-width="1.6" marker-end="url(#arrow)"/>
+        <text x="742" y="237" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#b8872a" letter-spacing="1">WSDL/XML</text>
+        <g>
+          <rect x="610" y="265" width="140" height="55" fill="#fbf8f0" stroke="#141211" stroke-width="1.2"/>
+          <text x="680" y="285" text-anchor="middle" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="#141211">Serviço remoto CNPq</text>
+          <text x="680" y="302" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#6a635a">WSDL oficial</text>
+        </g>
+        <line x1="500" y1="210" x2="500" y2="260" stroke="#4c6b4d" stroke-width="1.6" marker-end="url(#arrow)"/>
+        <text x="560" y="240" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#4c6b4d" letter-spacing="1">SQL / XML</text>
+        <g>
+          <rect x="420" y="265" width="160" height="55" fill="#fbf8f0" stroke="#141211" stroke-width="1.2"/>
+          <text x="500" y="285" text-anchor="middle" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="#141211">Banco de dados</text>
+          <text x="500" y="302" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#6a635a">MariaDB / MySQL</text>
+        </g>
+        <line x1="285" y1="210" x2="285" y2="260" stroke="#4c6b4d" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+        <text x="330" y="240" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#4c6b4d" letter-spacing="1">SQL</text>
+        <g>
+          <rect x="210" y="265" width="150" height="55" fill="#fbf8f0" stroke="#141211" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="285" y="285" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" font-weight="500" fill="#141211">Consulta de indicadores</text>
+          <text x="285" y="302" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#6a635a">leitura para relatórios</text>
+        </g>
+        <text x="20" y="30" font-family="Fraunces" font-style="italic" font-size="14" fill="#7a2e1f">Camada institucional</text>
+        <text x="420" y="30" font-family="Fraunces" font-style="italic" font-size="14" fill="#7a2e1f">Integração SOAP/WSDL</text>
+        <text x="20" y="250" font-family="Fraunces" font-style="italic" font-size="14" fill="#4c6b4d">Persistência · estado incremental</text>
+      </svg>
+    </div>
+
+    <div class="legend" aria-hidden="true" style="justify-content: center; max-width: 1280px; margin-left: auto; margin-right: auto; margin-top: 14px;">
+      <span class="l-rest">REST</span>
+      <span class="l-soap">SOAP</span>
+      <span class="l-wsdl">WSDL / XML</span>
+      <span class="l-sql">SQL / XML</span>
+    </div>
+
+    <div class="foot-chrome">
+      <div>Pré-projeto · Metodologia do Trabalho Científico</div>
+      <div>UNIFAP · 2026</div>
+    </div>
+  </section>
+
+  <!-- ============ 3 · TEMA ============ -->
+  <section data-screen-label="03 Tema">
+    <div class="chrome">
+      <div class="brand-mini">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#7a2e1f" stroke-width="1.5"/><path d="M 12 22 L 20 10 L 28 22" fill="none" stroke="#141211" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="26" r="2" fill="#7a2e1f"/></svg>
+        PPC&amp;T Integrado
+      </div>
+      <div><span class="sec-tag">II · Tema</span></div>
+    </div>
+
+    <div class="head-block">
+      <span class="sec-roman">II</span>
+      <span class="sec-kicker">Tema &amp; delimitação</span>
+      <h2>Tema e Delimitação do Tema</h2>
+    </div>
+
+    <div class="tema-body">
+      <p>
+        O tema deste projeto situa-se na <strong>integração de sistemas de
+        informação</strong> voltados ao acompanhamento institucional da
+        produção científica e tecnológica, com ênfase no tratamento de dados
+        provenientes de currículos Lattes por meio de serviços orientados ao
+        contrato <code>WSCurriculo</code>.
+      </p>
+      <p>
+        A delimitação adotada concentra-se na consolidação do
+        <strong>PPC&amp;T Integrado</strong>, hospedado em
+        Oracle Cloud, com painel web, serviços <code>FastAPI</code>,
+        persistência em <code>MariaDB/MySQL</code> e fluxo de sincronização
+        incremental de currículos por identificador Lattes, validado
+        operacionalmente com o proxy da UNIFAP e direcionado à geração de
+        indicadores e relatórios institucionais.
+      </p>
+    </div>
+
+    <div class="foot-chrome">
+      <div>Pré-projeto · Metodologia do Trabalho Científico</div>
+      <div>UNIFAP · 2026</div>
+    </div>
+  </section>
+
+  <!-- ============ 4A · PROBLEMÁTICA — AMPLA ============ -->
+  <section data-screen-label="04 Problematica - Ampla" data-om-validate>
+    <div class="chrome">
+      <div class="brand-mini">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#7a2e1f" stroke-width="1.5"/><path d="M 12 22 L 20 10 L 28 22" fill="none" stroke="#141211" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="26" r="2" fill="#7a2e1f"/></svg>
+        PPC&amp;T Integrado
+      </div>
+      <div><span class="sec-tag">III · Problemática · amplo</span></div>
+    </div>
+
+    <div class="head-block">
+      <span class="sec-roman">III</span>
+      <span class="sec-kicker">Problemática · escopo amplo</span>
+      <h2>A consolidação institucional da pesquisa</h2>
+    </div>
+
+    <div class="prob-split">
+      <aside class="prob-split-meta">
+        <div class="psm-tag"><span class="dot"></span>Escopo amplo</div>
+        <div class="psm-num">1/2</div>
+        <p class="psm-hint">
+          Quadro institucional que delimita o problema antes de descer ao
+          caso concreto do PPC&amp;T.
+        </p>
+      </aside>
+
+      <div class="prob-split-body">
+        <p class="prob-split-lead">
+          A problemática começa por uma <strong>leitura ampla</strong>,
+          que situa a carência institucional no tratamento consolidado
+          da produção científica.
+        </p>
+
+        <article class="prob-split-card">
+          <h3>Incipiência da consolidação da pesquisa institucional</h3>
+          <p>
+            Verifica-se a <strong>incipiência de sistemas capazes de consolidar
+            de maneira efetiva as informações de pesquisa</strong> desenvolvidas
+            em uma instituição de ensino superior, cobrindo com eficiência os
+            dados de pesquisadores de diversas modalidades — Iniciação
+            Científica, Projetos de Extensão, Pós-Graduação, entre outras.
+          </p>
+          <p>
+            Essa dispersão dificulta a interpretação e a análise dessas
+            informações dentro da respectiva instituição, comprometendo a
+            visibilidade da produção acadêmica tanto para a gestão institucional
+            quanto para a comunidade externa interessada no acompanhamento da
+            ciência produzida.
+          </p>
+        </article>
+
+        <div class="prob-split-next" aria-hidden="true">
+          <span>A seguir — o recorte específico</span>
+          <svg viewBox="0 0 22 14" width="28" height="18" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 2 7 L 20 7 M 14 2 L 20 7 L 14 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-chrome">
+      <div>Pré-projeto · Metodologia do Trabalho Científico</div>
+      <div>UNIFAP · 2026</div>
+    </div>
+  </section>
+
+  <!-- ============ 4B · PROBLEMÁTICA — ESPECÍFICA ============ -->
+  <section data-screen-label="05 Problematica - Especifica" data-om-validate>
+    <div class="chrome">
+      <div class="brand-mini">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#7a2e1f" stroke-width="1.5"/><path d="M 12 22 L 20 10 L 28 22" fill="none" stroke="#141211" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="26" r="2" fill="#7a2e1f"/></svg>
+        PPC&amp;T Integrado
+      </div>
+      <div><span class="sec-tag">III · Problemática · específico</span></div>
+    </div>
+
+    <div class="head-block">
+      <span class="sec-roman">III</span>
+      <span class="sec-kicker">Problemática · escopo específico</span>
+      <h2>PPC&amp;T e restrições operacionais</h2>
+    </div>
+
+    <div class="prob-split prob-split--b">
+      <aside class="prob-split-meta especifico">
+        <div class="psm-tag"><span class="dot"></span>Escopo específico</div>
+        <div class="psm-num">2/2</div>
+        <p class="psm-hint">
+          Do quadro institucional para o ponto exato em que a solução
+          precisa incidir.
+        </p>
+      </aside>
+
+      <div class="prob-split-body">
+        <p class="prob-split-lead">
+          No recorte <strong>específico</strong>, o problema emerge das
+          <strong>restrições operacionais</strong> observadas no percurso
+          de implantação do painel.
+        </p>
+
+        <article class="prob-split-card especifico">
+          <h3>O PPC&amp;T e os gargalos técnicos de implantação</h3>
+          <p>
+            Atualmente, o <strong>Painel de Produção Científica e Tecnológica
+            (PPC&amp;T)</strong>, desenvolvido por Carvalho (2025), constitui
+            uma ferramenta institucional de consolidação e visualização de
+            dados de pesquisadores. Seu contexto evidencia a necessidade de
+            disponibilizar, em um único ambiente institucional, dados
+            atualizados de currículos Lattes com consistência de processamento,
+            preservação de histórico incremental, integração confiável com
+            serviços <code>SOAP/WSDL</code> e suporte à visualização de
+            indicadores e relatórios.
+          </p>
+          <p>
+            Ao mesmo tempo, o histórico de implantação revelou
+            <strong>restrições operacionais relevantes</strong>: dependência
+            de endpoint autorizado, validação prática de requisições remotas,
+            necessidade de correções de persistência e endurecimento do
+            ambiente publicado — limitações que dificultavam a atualização
+            recorrente da base de dados.
+          </p>
+        </article>
+
+        <p class="pull prob-split-pull">
+          Do panorama institucional disperso ao gargalo técnico específico: a
+          problemática caminha do quadro amplo ao ponto exato em que a solução
+          precisa incidir.
+        </p>
+      </div>
+    </div>
+
+    <div class="foot-chrome">
+      <div>Pré-projeto · Metodologia do Trabalho Científico</div>
+      <div>UNIFAP · 2026</div>
+    </div>
+  </section>
+
+  <!-- ============ 5 · CONTEXTUALIZAÇÃO — INTRO ============ -->
+  <section data-screen-label="06 Contextualizacao - Intro">
+    <div class="chrome">
+      <div class="brand-mini">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#7a2e1f" stroke-width="1.5"/><path d="M 12 22 L 20 10 L 28 22" fill="none" stroke="#141211" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="26" r="2" fill="#7a2e1f"/></svg>
+        PPC&amp;T Integrado
+      </div>
+      <div><span class="sec-tag">IV · Contextualização</span></div>
+    </div>
+
+    <div class="head-block">
+      <span class="sec-roman">IV</span>
+      <span class="sec-kicker">Contextualização · ecossistema de referência</span>
+      <h2>Contextualização</h2>
+    </div>
+
+    <p class="ctx-intro" style="font-size: 26px; max-width: 90ch; line-height: 1.55;">
+      O PPC&amp;T Integrado dialoga com um conjunto estabelecido de
+      plataformas, ferramentas e soluções correlatas. A leitura desse
+      ecossistema esclarece por que determinadas fontes foram adotadas, por
+      que outras foram descartadas e em que ponto o projeto se diferencia.
+      A seguir, três grupos organizam esse panorama: <em>fontes de dados</em>,
+      <em>soluções correlatas</em> e <em>base direta</em>.
+    </p>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px;">
+      <div style="padding: 32px; background: var(--card); border: 1px solid var(--rule); border-left: 4px solid var(--deep);">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent); letter-spacing: 0.12em; margin-bottom: 10px;">GRUPO A</div>
+        <h3 style="font-family: 'Fraunces', serif; font-style: italic; font-size: 28px; margin-bottom: 10px;">Fontes de dados institucionais</h3>
+        <p style="font-size: 15px; color: var(--muted); max-width: none;">Plataformas oficiais de registro e avaliação da produção acadêmica brasileira.</p>
+      </div>
+      <div style="padding: 32px; background: var(--card); border: 1px solid var(--rule); border-left: 4px solid var(--highlight);">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent); letter-spacing: 0.12em; margin-bottom: 10px;">GRUPO B</div>
+        <h3 style="font-family: 'Fraunces', serif; font-style: italic; font-size: 28px; margin-bottom: 10px;">Soluções correlatas</h3>
+        <p style="font-size: 15px; color: var(--muted); max-width: none;">Ferramentas que abordam problemas análogos de extração, análise e manipulação dos dados Lattes.</p>
+      </div>
+      <div style="padding: 32px; background: var(--card); border: 1px solid var(--rule); border-left: 4px solid var(--accent);">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent); letter-spacing: 0.12em; margin-bottom: 10px;">GRUPO C</div>
+        <h3 style="font-family: 'Fraunces', serif; font-style: italic; font-size: 28px; margin-bottom: 10px;">Base direta do projeto</h3>
+        <p style="font-size: 15px; color: var(--muted); max-width: none;">Ferramenta institucional da qual o PPC&amp;T Integrado deriva.</p>
+      </div>
+    </div>
+
+    <div class="foot-chrome">
+      <div>Pré-projeto · Metodologia do Trabalho Científico</div>
+      <div>UNIFAP · 2026</div>
+    </div>
+  </section>
+
+  <!-- ============ 6 · CTX A — Fontes de dados ============ -->
+  <section data-screen-label="07 Ctx A - Fontes">
+    <div class="chrome">
+      <div class="brand-mini">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#7a2e1f" stroke-width="1.5"/><path d="M 12 22 L 20 10 L 28 22" fill="none" stroke="#141211" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="26" r="2" fill="#7a2e1f"/></svg>
+        PPC&amp;T Integrado
+      </div>
+      <div><span class="sec-tag">IV · Grupo A</span></div>
+    </div>
+
+    <div class="head-block" style="margin-top: 80px; margin-bottom: 36px;">
+      <span class="sec-kicker">Contextualização · Grupo A</span>
+      <h2 style="font-size: 56px;">Fontes de dados institucionais</h2>
+      <p style="margin-top: 14px; font-size: 18px; color: var(--muted); max-width: 80ch;">Plataformas oficiais de registro e avaliação da produção acadêmica brasileira.</p>
+    </div>
+
+    <div class="ctx-cards">
+      <div class="ctx-card">
+        <div>
+          <span class="ctx-year">s.d.</span>
+          <span class="ctx-year-sub">FONTE</span>
+        </div>
+        <div class="ctx-body">
+          <h4>Plataforma Lattes</h4>
+          <div class="ctx-cite">CNPq, [s.d.]</div>
+          <p>
+            Base de dados nacional mantida pelo Conselho Nacional de
+            Desenvolvimento Científico e Tecnológico, centraliza
+            informações de pesquisa de diversas modalidades (Iniciação
+            Científica, Pós-Graduação, Extensão) em um único registro
+            por pesquisador.
+          </p>
+          <p>
+            No projeto, configura-se como a alternativa mais viável para
+            coleta de informações atualizadas, servindo de origem dos
+            dados processados pelo PPC&amp;T Integrado via contrato
+            <code>WSCurriculo</code>.
+          </p>
+          <span class="ctx-rel fonte">origem dos dados do projeto</span>
+        </div>
+      </div>
+
+      <div class="ctx-card">
+        <div>
+          <span class="ctx-year">2024</span>
+          <span class="ctx-year-sub">descartada</span>
+        </div>
+        <div class="ctx-body">
+          <h4>Plataforma Sucupira</h4>
+          <div class="ctx-cite">BRASIL, 2026 · CAPES &amp; RNP</div>
+          <p>
+            Resultado do esforço conjunto entre a Coordenação de
+            Aperfeiçoamento de Pessoal de Nível Superior e a Rede
+            Nacional de Pesquisa, apresenta traços similares ao
+            PPC&amp;T voltados à informatização dos dados de pesquisa
+            científica, com foco específico nos dados de pós-graduação
+            vindos de avaliações dos programas.
+          </p>
+          <p>
+            Não foi utilizada como fonte de extração por apresentar
+            apenas dados de pós-graduação e não dispor de
+            <strong>solução programável de acesso</strong> aos dados.
+          </p>
+          <span class="ctx-rel">referência institucional</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-chrome">
+      <div>Pré-projeto · Metodologia do Trabalho Científico</div>
+      <div>UNIFAP · 2026</div>
+    </div>
+  </section>
+
+  <!-- ============ 7 · CTX B — Soluções correlatas ============ -->
+  <section data-screen-label="08 Ctx B - Correlatas">
+    <div class="chrome">
+      <div class="brand-mini">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#7a2e1f" stroke-width="1.5"/><path d="M 12 22 L 20 10 L 28 22" fill="none" stroke="#141211" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="26" r="2" fill="#7a2e1f"/></svg>
+        PPC&amp;T Integrado
+      </div>
+      <div><span class="sec-tag">IV · Grupo B</span></div>
+    </div>
+
+    <div class="head-block" style="margin-top: 60px; margin-bottom: 28px;">
+      <span class="sec-kicker">Contextualização · Grupo B</span>
+      <h2 style="font-size: 50px;">Soluções correlatas</h2>
+      <p style="margin-top: 12px; font-size: 18px; color: var(--muted); max-width: 92ch;">Ferramentas que abordam problemas análogos de extração, análise e manipulação dos dados Lattes.</p>
+    </div>
+
+    <div class="ctx-cards" style="grid-template-columns: repeat(3, 1fr); gap: 18px;">
+      <div class="ctx-card" style="grid-template-columns: 1fr; gap: 8px;">
+        <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 8px;">
+          <span class="ctx-year">2009</span>
+          <span class="ctx-year-sub" style="margin-top: 0;">correlata</span>
+        </div>
+        <div class="ctx-body">
+          <h4>ScriptLattes</h4>
+          <div class="ctx-cite">MENA-CHALCO; CESAR JUNIOR, 2009</div>
+          <p>
+            Solução extensamente citada na literatura como uma das mais
+            eficientes ao problema da busca, visualização e criação de
+            relações de informações acadêmicas, gerando páginas HTML
+            com visualização de produções de pesquisadores, contagem
+            de produções e teia de relacionamentos.
+          </p>
+          <p>
+            Seu funcionamento baseava-se na varredura de páginas HTML
+            da Plataforma Lattes — estratégia que deixou de ser
+            viável após a implementação de <strong>CAPTCHA</strong> no
+            acesso aos currículos, restringindo o sistema a páginas
+            previamente baixadas.
+          </p>
+          <span class="ctx-rel">limite do <em>scraping</em></span>
+        </div>
+      </div>
+
+      <div class="ctx-card" style="grid-template-columns: 1fr; gap: 8px;">
+        <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 8px;">
+          <span class="ctx-year">2015</span>
+          <span class="ctx-year-sub" style="margin-top: 0;">correlata</span>
+        </div>
+        <div class="ctx-body">
+          <h4>Extrator Lattes</h4>
+          <div class="ctx-cite">ABREU; ROMÃO, 2015 · Univ. de Joinville</div>
+          <p>
+            Desenvolvido na Universidade de Joinville e posteriormente
+            adotado como solução oficial ao carregamento dos dados da
+            plataforma em bases locais. Através do contrato oficial
+            <code>WSCurriculo</code>, realiza requisição e carregamento
+            em bases relacionais.
+          </p>
+          <p>
+            Sua implementação <strong>exige autorização institucional</strong>
+            e pode ser utilizada apenas por sistemas acadêmicos
+            credenciados pelo CNPq (SANTANA, 2018, p.17-18). Essa
+            inflexibilidade de uso geral restringe o acesso da
+            comunidade ao desenvolvimento de soluções — apesar
+            de garantir a segurança das informações.
+          </p>
+          <span class="ctx-rel">via oficial · <code>WSCurriculo</code></span>
+        </div>
+      </div>
+
+      <div class="ctx-card" style="grid-template-columns: 1fr; gap: 8px;">
+        <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 8px;">
+          <span class="ctx-year">2018</span>
+          <span class="ctx-year-sub" style="margin-top: 0;">correlata</span>
+        </div>
+        <div class="ctx-body">
+          <h4>lattesLab</h4>
+          <div class="ctx-cite">SANTANA, 2018 · INPE</div>
+          <p>
+            Biblioteca Python voltada à manipulação de dados da
+            Plataforma Lattes, com foco em disponibilizar a informação
+            em estruturas de dados orientadas à ciência de dados,
+            facilitando a geração de informação a partir dos dados.
+          </p>
+          <p>
+            Representa a forma como a manipulação via processo
+            <code>ETL</code> (Extract, Transform, Load) facilita a
+            integração em cenários voltados à análise e à ciência de
+            dados.
+          </p>
+          <span class="ctx-rel">inspiração · modelo <code>ETL</code></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-chrome">
+      <div>Pré-projeto · Metodologia do Trabalho Científico</div>
+      <div>UNIFAP · 2026</div>
+    </div>
+  </section>
+
+  <!-- ============ 8 · CTX C — Base direta ============ -->
+  <section data-screen-label="09 Ctx C - Base direta">
+    <div class="chrome">
+      <div class="brand-mini">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#7a2e1f" stroke-width="1.5"/><path d="M 12 22 L 20 10 L 28 22" fill="none" stroke="#141211" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="26" r="2" fill="#7a2e1f"/></svg>
+        PPC&amp;T Integrado
+      </div>
+      <div><span class="sec-tag">IV · Grupo C</span></div>
+    </div>
+
+    <div class="head-block" style="margin-bottom: 36px;">
+      <span class="sec-kicker">Contextualização · Grupo C</span>
+      <h2 style="font-size: 56px;">Base direta do projeto</h2>
+      <p style="margin-top: 14px; font-size: 18px; color: var(--muted); max-width: 80ch;">Ferramenta institucional da qual o PPC&amp;T Integrado deriva.</p>
+    </div>
+
+    <div class="ctx-cards single">
+      <div class="ctx-card" style="padding: 36px 44px; grid-template-columns: 160px 1fr;">
+        <div>
+          <span class="ctx-year" style="font-size: 56px;">2025</span>
+          <span class="ctx-year-sub">PIVÔ</span>
+        </div>
+        <div class="ctx-body">
+          <h4 style="font-size: 32px;">PPC&amp;T — Painel de Produção Científica e Tecnológica</h4>
+          <div class="ctx-cite" style="font-size: 14px; margin-bottom: 16px;">CARVALHO, 2025 · Dissertação (Mestrado) · UNIFAP</div>
+          <p style="font-size: 19px; line-height: 1.55;">
+            Constitui peça central do desenvolvimento proposto, por
+            apresentar interface interativa e consolidada para a
+            visualização de medidas e <em>dashboards</em> acerca dos
+            dados de produção científica.
+          </p>
+          <p style="font-size: 19px; line-height: 1.55;">
+            Carvalho (2025) ressaltou tais características como
+            principais motores à construção da ferramenta, como forma
+            de tornar visível, para gestores institucionais e à
+            comunidade geral, uma análise facilitada das atividades
+            produzidas pela academia.
+          </p>
+          <span class="ctx-rel pivot" style="font-size: 13px; padding: 7px 14px;">base estrutural · ponto de partida</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-chrome">
+      <div>Pré-projeto · Metodologia do Trabalho Científico</div>
+      <div>UNIFAP · 2026</div>
+    </div>
+  </section>
+
+  <!-- ============ 9 · PROBLEMA DE PESQUISA ============ -->
+  <section data-screen-label="10 Problema de pesquisa">
+    <div class="chrome">
+      <div class="brand-mini">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#7a2e1f" stroke-width="1.5"/><path d="M 12 22 L 20 10 L 28 22" fill="none" stroke="#141211" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="26" r="2" fill="#7a2e1f"/></svg>
+        PPC&amp;T Integrado
+      </div>
+      <div><span class="sec-tag">V · Problema de Pesquisa</span></div>
+    </div>
+
+    <div class="head-block">
+      <span class="sec-roman">V</span>
+      <span class="sec-kicker">Problema de pesquisa &amp; justificativa</span>
+      <h2>Problema de Pesquisa e Justificativa</h2>
+    </div>
+
+    <p class="problema-question">
+      Como consolidar, em ambiente Oracle Cloud, um painel institucional
+      capaz de sincronizar, processar e disponibilizar dados de currículos
+      Lattes de forma confiável, diante das restrições operacionais de
+      acesso ao <code>WSCurriculo</code> e da necessidade de persistência
+      consistente para indicadores e relatórios?
+    </p>
+
+    <div class="just-grid">
+      <div>
+        <h3>Justificativa técnica e institucional</h3>
+        <p>
+          A justificativa do projeto decorre da necessidade de transformar um
+          conjunto disperso de integrações, scripts e validações em uma
+          <strong>solução institucional única</strong>, operacionalmente
+          estável e capaz de sustentar a consulta pública e institucional de
+          dados acadêmicos estruturados.
+        </p>
+      </div>
+      <div>
+        <h3>Relevância para os usuários</h3>
+        <p>
+          A solução impacta gestores e usuários finais do painel, pois
+          viabiliza acompanhamento contínuo da produção científica e
+          tecnológica, reduz falhas de atualização manual e melhora a
+          confiabilidade do dado exibido nas telas de indicadores e relatórios.
+        </p>
+      </div>
+    </div>
+
+    <div class="foot-chrome">
+      <div>Pré-projeto · Metodologia do Trabalho Científico</div>
+      <div>UNIFAP · 2026</div>
+    </div>
+  </section>
+
+  <!-- ============ 10 · OBJETIVOS ============ -->
+  <section data-screen-label="11 Objetivos">
+    <div class="chrome">
+      <div class="brand-mini">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#7a2e1f" stroke-width="1.5"/><path d="M 12 22 L 20 10 L 28 22" fill="none" stroke="#141211" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="26" r="2" fill="#7a2e1f"/></svg>
+        PPC&amp;T Integrado
+      </div>
+      <div><span class="sec-tag">VI · Objetivos</span></div>
+    </div>
+
+    <div class="head-block" style="margin-top: 60px; margin-bottom: 20px;">
+      <span class="sec-roman" style="font-size: 96px;">VI</span>
+      <span class="sec-kicker">Objetivos</span>
+      <h2 style="font-size: 56px;">Objetivos</h2>
+    </div>
+
+    <div class="obj-general">
+      <h3>Objetivo Geral</h3>
+      <p>
+        <strong>Desenvolver</strong> uma solução institucional, implantada
+        em Oracle Cloud, capaz de sincronizar currículos Lattes por
+        identificador, processar dados obtidos via integração
+        <code>SOAP/WSDL</code>, persisti-los de forma consistente em um
+        banco de dados e disponibilizá-los em indicadores e relatórios para
+        consulta institucional, baseando-se na estrutura do projeto
+        PPC&amp;T desenvolvido por Carvalho (2025).
+      </p>
+    </div>
+
+    <h3 class="obj-specific-title">Objetivos Específicos</h3>
+    <ol class="obj-list">
+      <li>
+        <div>
+          <strong>Identificar</strong> os requisitos técnicos e operacionais
+          necessários à integração entre painel web, serviço de
+          sincronização, endpoint SOAP local e contrato
+          <code>WSCurriculo</code>.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Validar</strong> a comunicação com o contrato
+          <code>WSCurriculo</code> e com o endpoint configurado para a
+          sincronização de currículos, incluindo consulta de atualização e
+          obtenção do currículo compactado.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Estruturar</strong> a persistência incremental do
+          <code>XML</code> baixado, do estado de sincronização e dos
+          registros processados nas tabelas do painel e no esquema
+          expandido do extrator.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Verificar</strong> a consistência dos dados sincronizados
+          na geração de indicadores, relatórios e fluxos de consulta
+          institucional e pública.
+        </div>
+      </li>
+      <li style="grid-column: 1 / -1;">
+        <div>
+          <strong>Avaliar</strong> as correções aplicadas para mitigar
+          fragilidades operacionais associadas à persistência de títulos e
+          citações extensas e à exposição indevida de componentes
+          administrativos.
+        </div>
+      </li>
+    </ol>
+
+    <div class="foot-chrome">
+      <div>Pré-projeto · Metodologia do Trabalho Científico</div>
+      <div>UNIFAP · 2026</div>
+    </div>
+  </section>
+
+  <!-- ============ 11 · METODOLOGIA ============ -->
+  <section data-screen-label="12 Metodologia">
+    <div class="chrome">
+      <div class="brand-mini">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#7a2e1f" stroke-width="1.5"/><path d="M 12 22 L 20 10 L 28 22" fill="none" stroke="#141211" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="26" r="2" fill="#7a2e1f"/></svg>
+        PPC&amp;T Integrado
+      </div>
+      <div><span class="sec-tag">VII · Metodologia</span></div>
+    </div>
+
+    <div class="head-block" style="margin-top: 60px; margin-bottom: 24px;">
+      <span class="sec-roman" style="font-size: 96px;">VII</span>
+      <span class="sec-kicker">Metodologia</span>
+      <h2 style="font-size: 56px;">Metodologia</h2>
+    </div>
+
+    <div class="meth-body">
+      <p>
+        A pesquisa apresenta <strong>natureza aplicada</strong>, pois se
+        orienta à construção e à validação de uma solução operacional para
+        sincronização e disponibilização institucional de currículos Lattes
+        em ambiente de produção. Quanto à abordagem, caracteriza-se como
+        <strong>mista</strong>, combinando análise qualitativa de fluxos,
+        contratos, configurações e decisões de infraestrutura com
+        verificações quantitativas de sincronização, persistência, contagem
+        de registros e estado incremental do processamento.
+      </p>
+      <p>
+        No que se refere aos objetivos da pesquisa, o estudo assume caráter
+        <strong>exploratório e descritivo</strong>, porque examina
+        alternativas de integração, identifica restrições operacionais do
+        ambiente e descreve o comportamento da solução consolidada. Quanto
+        aos procedimentos técnicos, fundamenta-se em
+        <strong>análise documental</strong> do contrato <code>WSDL</code>,
+        arquivos de configuração, logs e documentação do sistema, bem como
+        em <strong>estudo de caso</strong> do ambiente Oracle Cloud
+        utilizado para implantação e validação do projeto.
+      </p>
+    </div>
+
+    <div class="meth-grid">
+      <div class="meth-cell">
+        <h4>Classificação</h4>
+        <h3>Natureza, abordagem e objetivos</h3>
+        <p>
+          Estudo aplicado, de abordagem mista e de caráter
+          exploratório-descritivo, em razão do foco prático na consolidação
+          da solução e da necessidade de interpretar evidências técnicas e
+          métricas de funcionamento.
+        </p>
+      </div>
+      <div class="meth-cell">
+        <h4>Procedimentos</h4>
+        <h3>Técnicas e instrumentos</h3>
+        <p>
+          Testes de integração <code>SOAP/REST</code>, consultas ao estado
+          de sincronização, verificação de persistência em banco, leitura
+          do contrato <code>WSCurriculo</code>, análise de logs e
+          observação do comportamento das rotas e serviços da stack
+          validada.
+        </p>
+      </div>
+    </div>
+
+    <div class="foot-chrome">
+      <div>Pré-projeto · Metodologia do Trabalho Científico</div>
+      <div>UNIFAP · 2026</div>
+    </div>
+  </section>
+
+  <!-- ============ 12 · TRAJETÓRIA ============ -->
+  <section data-screen-label="13 Trajetoria">
+    <div class="chrome">
+      <div class="brand-mini">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#7a2e1f" stroke-width="1.5"/><path d="M 12 22 L 20 10 L 28 22" fill="none" stroke="#141211" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="26" r="2" fill="#7a2e1f"/></svg>
+        PPC&amp;T Integrado
+      </div>
+      <div><span class="sec-tag">VIII · Trajetória</span></div>
+    </div>
+
+    <div class="head-block" style="margin-top: 60px; margin-bottom: 20px;">
+      <span class="sec-roman" style="font-size: 96px;">VIII</span>
+      <span class="sec-kicker">Trajetória do projeto</span>
+      <h2 style="font-size: 56px;">Como Chegamos Até Aqui</h2>
+    </div>
+
+    <ol class="traj-list">
+      <li class="traj-item">
+        <div>
+          <h3>Consolidação do escopo funcional</h3>
+          <p>
+            A trajetória partiu da necessidade de reunir, em uma mesma linha
+            de implantação, o painel institucional, as rotas de acesso
+            público e institucional, os indicadores, os relatórios e o fluxo
+            de sincronização de currículos, resultando na consolidação do
+            PPC&amp;T Integrado em ambiente Oracle Cloud.
+          </p>
+        </div>
+      </li>
+      <li class="traj-item">
+        <div>
+          <h3>Validação do caminho de integração <code>SOAP/WSDL</code></h3>
+          <p>
+            Foram conduzidos testes com o <code>WSDL</code> oficial do CNPq
+            e com as operações reais do serviço. Embora o WSDL oficial
+            estivesse acessível, a execução prática das operações dependia
+            de autorização do IP de origem, o que impôs restrições ao uso
+            direto desse endpoint no ambiente validado.
+          </p>
+        </div>
+      </li>
+      <li class="traj-item">
+        <div>
+          <h3>Adoção do proxy validado da UNIFAP</h3>
+          <p>
+            Passou-se à validação do proxy <code>WSCurriculo</code> da
+            UNIFAP em porta 443. Esse caminho mostrou-se operacionalmente
+            viável, respondendo ao WSDL e às operações
+            <code>getDataAtualizacaoCV</code> e
+            <code>getCurriculoCompactado</code>, permitindo o ajuste do
+            serviço de sincronização para utilização prática do endpoint
+            validado.
+          </p>
+        </div>
+      </li>
+      <li class="traj-item">
+        <div>
+          <h3>Sincronização real e correções de persistência</h3>
+          <p>
+            Após a integração, foram realizados testes reais de
+            sincronização com currículos identificados por
+            <code>id_lattes</code>, incluindo sincronização individual e em
+            lote. Esse processo evidenciou a necessidade de ampliar colunas
+            para títulos e citações longas, corrigir pontos de persistência
+            e verificar o comportamento incremental da atualização sem
+            duplicidade.
+          </p>
+        </div>
+      </li>
+      <li class="traj-item" style="grid-column: 1 / -1;">
+        <div>
+          <h3>Endurecimento operacional da solução implantada</h3>
+          <p style="max-width: 140ch;">
+            A solução foi endurecida para uso institucional, com proteção
+            da porta administrativa 8010, revisão da documentação,
+            melhoria do fluxo de <em>deploy</em> e refinamentos de
+            interface nas telas de indicadores e relatórios, compondo a
+            base técnica atualmente validada.
+          </p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="foot-chrome">
+      <div>Pré-projeto · Metodologia do Trabalho Científico</div>
+      <div>UNIFAP · 2026</div>
+    </div>
+  </section>
+
+  <!-- ============ 13 · REFERÊNCIAS ============ -->
+  <section data-screen-label="14 Referencias">
+    <div class="chrome">
+      <div class="brand-mini">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#7a2e1f" stroke-width="1.5"/><path d="M 12 22 L 20 10 L 28 22" fill="none" stroke="#141211" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="26" r="2" fill="#7a2e1f"/></svg>
+        PPC&amp;T Integrado
+      </div>
+      <div><span class="sec-tag">IX · Referências</span></div>
+    </div>
+
+    <div class="head-block" style="margin-top: 50px; margin-bottom: 16px;">
+      <span class="sec-roman" style="font-size: 84px;">IX</span>
+      <span class="sec-kicker">Referências · ABNT NBR 6023</span>
+      <h2 style="font-size: 48px;">Referências</h2>
+    </div>
+
+    <p class="ref-intro">
+      Lista organizada em ordem alfabética pelo sobrenome do primeiro
+      autor, conforme as diretrizes da ABNT NBR 6023. Cada entrada recebe
+      um marcador indicando o papel da obra no projeto: base estrutural
+      (<em>pivô</em>), fonte de dados, solução correlata ou referência de
+      apoio.
+    </p>
+
+    <div class="ref-legend" aria-label="Legenda de papéis das obras">
+      <span><span class="tag-dot pivot"></span>Base estrutural · pivô</span>
+      <span><span class="tag-dot fonte"></span>Fonte de dados</span>
+      <span><span class="tag-dot correlata"></span>Solução correlata</span>
+      <span><span class="tag-dot"></span>Referência institucional</span>
+    </div>
+
+    <ol class="ref-list">
+      <li class="ref-entry">
+        <span class="ref-num">01</span>
+        <div>
+          <p class="ref-text">
+            <span class="surname">Abreu</span>, Lucas dos Santos;
+            <span class="surname">Romão</span>, Luiz Melo.
+            <em>Sistema de Apoio e Gestão de Competências aplicado na
+            Plataforma Lattes</em>. 2015. 9 f. Artigo — Universidade
+            da Região de Joinville, Joinville, 2015. Disponível em:
+            <a href="https://fabricadesoftwareuniville.github.io/ExtratorLattesCNPq/ARTIGO_VERSAO_POS_BANCA.pdf">fabricadesoftwareuniville.github.io/ExtratorLattesCNPq/…</a>.
+            Acesso em: 8 fev. 2026.
+          </p>
+          <div class="ref-meta">
+            <span class="ref-chip role-correlata">Solução correlata</span>
+            <span class="ref-chip">Extrator Lattes · via oficial WSCurriculo</span>
+          </div>
+        </div>
+      </li>
+
+      <li class="ref-entry">
+        <span class="ref-num">02</span>
+        <div>
+          <p class="ref-text">
+            <span class="surname">Brasil</span>. Coordenação de
+            Aperfeiçoamento de Pessoal de Nível Superior (CAPES).
+            <em>Sobre a Plataforma Sucupira</em>. Brasília, DF: CAPES,
+            2026. Disponível em:
+            <a href="https://sucupira.capes.gov.br/sobre-a-sucupira">sucupira.capes.gov.br/sobre-a-sucupira</a>.
+            Acesso em: 30 mar. 2026.
+          </p>
+          <div class="ref-meta">
+            <span class="ref-chip">Referência institucional</span>
+            <span class="ref-chip">Plataforma Sucupira · CAPES / RNP</span>
+          </div>
+        </div>
+      </li>
+
+      <li class="ref-entry">
+        <span class="ref-num">03</span>
+        <div>
+          <p class="ref-text">
+            <span class="surname">Carvalho</span>, Rhyan Wad Pantoja de.
+            <em>Painel interativo de produção científica e tecnológica
+            para instituições de ensino e pesquisa</em>. 2025. 145 f.
+            Dissertação (Mestrado) — Universidade Federal do Amapá,
+            Macapá, 2025.
+          </p>
+          <div class="ref-meta">
+            <span class="ref-chip role-pivot">Base estrutural · pivô</span>
+            <span class="ref-chip">PPC&amp;T — versão original</span>
+          </div>
+        </div>
+      </li>
+
+      <li class="ref-entry">
+        <span class="ref-num">04</span>
+        <div>
+          <p class="ref-text">
+            <span class="surname">CNPq</span>. <em>Plataforma Lattes</em>.
+            Brasília, DF: CNPq, [s.d.]. Disponível em:
+            <a href="https://lattes.cnpq.br/">lattes.cnpq.br</a>.
+            Acesso em: 18 fev. 2026.
+          </p>
+          <div class="ref-meta">
+            <span class="ref-chip role-fonte">Fonte de dados</span>
+            <span class="ref-chip">Origem dos currículos sincronizados</span>
+          </div>
+        </div>
+      </li>
+
+      <li class="ref-entry">
+        <span class="ref-num">05</span>
+        <div>
+          <p class="ref-text">
+            <span class="surname">Mena-Chalco</span>, Jesús P.;
+            <span class="surname">Cesar Junior</span>, Roberto M.
+            scriptLattes: an open-source knowledge extraction system from
+            the Lattes platform. <em>Journal of the Brazilian Computer
+            Society</em>, [s. l.], v. 15, n. 4, p. 31–39, 2009. Disponível em:
+            <a href="https://scriptlattes.sourceforge.net/">scriptlattes.sourceforge.net</a>.
+            Acesso em: 30 mar. 2026.
+          </p>
+          <div class="ref-meta">
+            <span class="ref-chip role-correlata">Solução correlata</span>
+            <span class="ref-chip">ScriptLattes · limite do <em>scraping</em></span>
+          </div>
+        </div>
+      </li>
+
+      <li class="ref-entry">
+        <span class="ref-num">06</span>
+        <div>
+          <p class="ref-text">
+            <span class="surname">Santana</span>, Thiago Luís Viana de.
+            <em>A data science approach to Lattes CV data analysis</em>.
+            2018. 100 f. Dissertação (Mestrado em Computação Aplicada)
+            — Instituto Nacional de Pesquisas Espaciais (INPE), São
+            José dos Campos, 2018. Disponível em:
+            <a href="http://urlib.net/8JMKD3MGP3W34R/3S3AQHH">urlib.net/8JMKD3MGP3W34R/3S3AQHH</a>.
+            Acesso em: 29 mar. 2026.
+          </p>
+          <div class="ref-meta">
+            <span class="ref-chip role-correlata">Solução correlata</span>
+            <span class="ref-chip">lattesLab · inspiração ETL</span>
+          </div>
+        </div>
+      </li>
+    </ol>
+
+    <p class="ref-foot-note">
+      Lista elaborada conforme a norma ABNT NBR 6023:2018 —
+      Informação e documentação: referências: elaboração. As entradas
+      seguem ordenação alfabética pelo sobrenome do primeiro autor, com
+      títulos de obras destacados em itálico e datas de acesso preservadas
+      conforme o pré-projeto.
+    </p>
+
+    <div class="foot-chrome">
+      <div>Pré-projeto · Metodologia do Trabalho Científico</div>
+      <div>UNIFAP · 2026</div>
+    </div>
+  </section>
+
+  <!-- ============ 14 · CLOSING ============ -->
+  <section class="closing closing-v2" data-screen-label="15 Encerramento">
+    <div class="closing-v2-wrap">
+      <div class="closing-v2-mark" aria-hidden="true">
+        <span class="cv2-line"></span>
+        <span class="cv2-tag">Fim</span>
+        <span class="cv2-line"></span>
+      </div>
+      <h1 class="closing-v2-word"><em>Obrigado.</em></h1>
+    </div>
+  </section>
+
+</deck-stage>
+
+</body>
+</html>
