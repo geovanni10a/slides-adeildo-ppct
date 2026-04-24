@@ -212,6 +212,7 @@
     }
     .count .sep { color: rgba(255,255,255,0.45); margin: 0 3px; font-weight: 400; }
     .count .total { color: rgba(255,255,255,0.55); }
+    :host([data-fullscreen]) .count { display: none; }
 
     .divider {
       width: 1px;
@@ -283,6 +284,8 @@
       this._onMouseMove = this._onMouseMove.bind(this);
       this._onTapBack = this._onTapBack.bind(this);
       this._onTapForward = this._onTapForward.bind(this);
+      this._onDeckClick = this._onDeckClick.bind(this);
+      this._onFullscreenChange = this._onFullscreenChange.bind(this);
     }
 
     get designWidth() {
@@ -299,6 +302,9 @@
       window.addEventListener('keydown', this._onKey);
       window.addEventListener('resize', this._onResize);
       window.addEventListener('mousemove', this._onMouseMove, { passive: true });
+      document.addEventListener('fullscreenchange', this._onFullscreenChange);
+      document.addEventListener('webkitfullscreenchange', this._onFullscreenChange);
+      this.addEventListener('click', this._onDeckClick);
       // Initial collection + layout happens via slotchange, which fires on mount.
     }
 
@@ -306,6 +312,9 @@
       window.removeEventListener('keydown', this._onKey);
       window.removeEventListener('resize', this._onResize);
       window.removeEventListener('mousemove', this._onMouseMove);
+      document.removeEventListener('fullscreenchange', this._onFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', this._onFullscreenChange);
+      this.removeEventListener('click', this._onDeckClick);
       if (this._hideTimer) clearTimeout(this._hideTimer);
       if (this._mouseIdleTimer) clearTimeout(this._mouseIdleTimer);
     }
@@ -371,11 +380,15 @@
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
         </button>
         <span class="divider"></span>
+        <button class="btn fullscreen" type="button" aria-label="Enter full screen" title="Full screen (F11)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6V3h3M10 3h3v3M13 10v3h-3M6 13H3v-3"/></svg>
+        </button>
         <button class="btn reset" type="button" aria-label="Reset to first slide" title="Reset (R)">Reset<span class="kbd">R</span></button>
       `;
 
       overlay.querySelector('.prev').addEventListener('click', () => this._go(this._index - 1, 'click'));
       overlay.querySelector('.next').addEventListener('click', () => this._go(this._index + 1, 'click'));
+      overlay.querySelector('.fullscreen').addEventListener('click', () => this._toggleFullscreen());
       overlay.querySelector('.reset').addEventListener('click', () => this._go(0, 'click'));
 
       this._root.append(style, stage, tapzones, overlay);
@@ -384,6 +397,8 @@
       this._overlay = overlay;
       this._countEl = overlay.querySelector('.current');
       this._totalEl = overlay.querySelector('.total');
+      this._countWrapEl = overlay.querySelector('.count');
+      this._fullscreenBtn = overlay.querySelector('.fullscreen');
     }
 
     /** @page must live in the document stylesheet — it's a no-op inside
@@ -556,6 +571,67 @@
       this._go(this._index + 1, 'tap');
     }
 
+    _onDeckClick(e) {
+      if (e.defaultPrevented || e.button !== 0) return;
+      const path = typeof e.composedPath === 'function' ? e.composedPath() : [];
+      const interactiveTags = /^(A|BUTTON|INPUT|TEXTAREA|SELECT|LABEL|SUMMARY)$/;
+      const cameFromControls = path.some((node) => {
+        if (!node || !node.classList) return false;
+        return node.classList.contains('overlay') ||
+          node.classList.contains('tapzones') ||
+          node.classList.contains('tapzone') ||
+          node.classList.contains('btn');
+      });
+      const cameFromInteractive = path.some((node) => {
+        return node && node.tagName && interactiveTags.test(node.tagName);
+      });
+      if (cameFromControls || cameFromInteractive) return;
+      this._go(this._index + 1, 'click');
+    }
+
+    _fullscreenElement() {
+      return document.fullscreenElement || document.webkitFullscreenElement || null;
+    }
+
+    _isFullscreen() {
+      const el = this._fullscreenElement();
+      return el === this || el === document.documentElement || (el && this.contains(el));
+    }
+
+    async _toggleFullscreen() {
+      try {
+        if (this._fullscreenElement()) {
+          if (document.exitFullscreen) await document.exitFullscreen();
+          else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        } else if (this.requestFullscreen) {
+          await this.requestFullscreen();
+        } else if (this.webkitRequestFullscreen) {
+          this.webkitRequestFullscreen();
+        }
+      } catch (e) {
+        console.warn('[deck-stage] Failed to toggle full screen:', e);
+      }
+      this._syncFullscreenState();
+      this._flashOverlay();
+    }
+
+    _syncFullscreenState() {
+      const active = this._isFullscreen();
+      this.toggleAttribute('data-fullscreen', active);
+      if (this._countWrapEl) this._countWrapEl.toggleAttribute('aria-hidden', active);
+      if (this._fullscreenBtn) {
+        const label = active ? 'Exit full screen' : 'Enter full screen';
+        const title = active ? 'Exit full screen (F11)' : 'Full screen (F11)';
+        this._fullscreenBtn.setAttribute('aria-label', label);
+        this._fullscreenBtn.setAttribute('title', title);
+      }
+    }
+
+    _onFullscreenChange() {
+      this._syncFullscreenState();
+      this._fit();
+    }
+
     _onKey(e) {
       // Ignore when the user is typing.
       const t = e.target;
@@ -575,6 +651,9 @@
         this._go(this._slides.length - 1, 'keyboard');
       } else if (key === 'r' || key === 'R') {
         this._go(0, 'keyboard');
+      } else if (key === 'F11') {
+        e.preventDefault();
+        this._toggleFullscreen();
       } else if (/^[0-9]$/.test(key)) {
         // 1..9 jump to that slide; 0 jumps to 10.
         const n = key === '0' ? 9 : parseInt(key, 10) - 1;
