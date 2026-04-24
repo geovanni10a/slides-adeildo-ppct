@@ -152,12 +152,6 @@
       z-index: 2147483000;
       user-select: none;
     }
-    .overlay[data-position="top"] {
-      top: 22px;
-      bottom: auto;
-      transform: translate(-50%, -6px) scale(0.92);
-      transform-origin: center top;
-    }
     .overlay[data-visible] {
       opacity: 1;
       pointer-events: auto;
@@ -543,10 +537,6 @@
       }
 
       this._prevIndex = curr;
-      if (this._overlay) {
-        if (curr === 4) this._overlay.setAttribute('data-position', 'top');
-        else this._overlay.removeAttribute('data-position');
-      }
       if (showOverlay) this._flashOverlay();
     }
 
