@@ -66,6 +66,9 @@
       color: #fff;
       font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
       overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: default;
     }
 
     .stage {
@@ -82,6 +85,8 @@
       flex-shrink: 0;
       background: #fff;
       will-change: transform;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     /* Slides live in light DOM (via <slot>) so authored CSS still applies.
@@ -95,6 +100,8 @@
       overflow: hidden;
       opacity: 0;
       pointer-events: none;
+      user-select: none;
+      -webkit-user-select: none;
       visibility: hidden;
     }
     ::slotted([data-deck-active]) {
@@ -110,17 +117,17 @@
       inset: 0;
       display: flex;
       z-index: 2147482000;
-      pointer-events: none;
+      pointer-events: auto;
+      user-select: none;
+      -webkit-user-select: none;
     }
     .tapzone {
       flex: 1;
       pointer-events: auto;
       -webkit-tap-highlight-color: transparent;
+      cursor: default;
     }
-    /* Only activate tap zones on coarse pointers (touch devices). */
-    @media (hover: hover) and (pointer: fine) {
-      .tapzones { display: none; }
-    }
+    .tapzone--mid { display: none; }
 
     .overlay {
       position: fixed;
@@ -212,7 +219,7 @@
     }
     .count .sep { color: rgba(255,255,255,0.45); margin: 0 3px; font-weight: 400; }
     .count .total { color: rgba(255,255,255,0.55); }
-    :host([data-fullscreen]) .count { display: none; }
+    :host([data-fullscreen]) .overlay { display: none !important; }
 
     .divider {
       width: 1px;
@@ -586,7 +593,9 @@
         return node && node.tagName && interactiveTags.test(node.tagName);
       });
       if (cameFromControls || cameFromInteractive) return;
-      this._go(this._index + 1, 'click');
+      const x = typeof e.clientX === 'number' ? e.clientX : window.innerWidth;
+      const direction = x < window.innerWidth / 2 ? -1 : 1;
+      this._go(this._index + direction, 'click');
     }
 
     _fullscreenElement() {
