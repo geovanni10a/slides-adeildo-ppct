@@ -152,6 +152,12 @@
       z-index: 2147483000;
       user-select: none;
     }
+    .overlay[data-position="top"] {
+      top: 22px;
+      bottom: auto;
+      transform: translate(-50%, -6px) scale(0.92);
+      transform-origin: center top;
+    }
     .overlay[data-visible] {
       opacity: 1;
       pointer-events: auto;
@@ -185,15 +191,16 @@
     .btn:focus-visible { outline: none; }
     .btn::-moz-focus-inner { border: 0; }
     .btn svg { width: 14px; height: 14px; display: block; }
+    .btn.fullscreen,
     .btn.reset {
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.02em;
-      padding: 0 10px 0 12px;
+      padding: 0 10px;
       gap: 6px;
       color: rgba(255,255,255,0.72);
     }
-    .btn.reset .kbd {
+    .btn .kbd {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -284,6 +291,7 @@
       this._notes = [];
       this._hideTimer = null;
       this._mouseIdleTimer = null;
+      this._keyboardFullscreen = false;
 
       this._onKey = this._onKey.bind(this);
       this._onResize = this._onResize.bind(this);
@@ -389,6 +397,7 @@
         <span class="divider"></span>
         <button class="btn fullscreen" type="button" aria-label="Enter full screen" title="Full screen (F11)">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6V3h3M10 3h3v3M13 10v3h-3M6 13H3v-3"/></svg>
+          <span class="kbd">F11</span>
         </button>
         <button class="btn reset" type="button" aria-label="Reset to first slide" title="Reset (R)">Reset<span class="kbd">R</span></button>
       `;
@@ -534,11 +543,19 @@
       }
 
       this._prevIndex = curr;
+      if (this._overlay) {
+        if (curr === 4) this._overlay.setAttribute('data-position', 'top');
+        else this._overlay.removeAttribute('data-position');
+      }
       if (showOverlay) this._flashOverlay();
     }
 
     _flashOverlay() {
       if (!this._overlay) return;
+      if (this.hasAttribute('data-fullscreen')) {
+        this._overlay.removeAttribute('data-visible');
+        return;
+      }
       this._overlay.setAttribute('data-visible', '');
       if (this._hideTimer) clearTimeout(this._hideTimer);
       this._hideTimer = setTimeout(() => {
@@ -604,12 +621,16 @@
 
     _isFullscreen() {
       const el = this._fullscreenElement();
-      return el === this || el === document.documentElement || (el && this.contains(el));
+      return this._keyboardFullscreen ||
+        el === this ||
+        el === document.documentElement ||
+        (el && this.contains(el));
     }
 
     async _toggleFullscreen() {
       try {
         if (this._fullscreenElement()) {
+          this._keyboardFullscreen = false;
           if (document.exitFullscreen) await document.exitFullscreen();
           else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
         } else if (this.requestFullscreen) {
@@ -637,6 +658,7 @@
     }
 
     _onFullscreenChange() {
+      if (this._fullscreenElement()) this._keyboardFullscreen = false;
       this._syncFullscreenState();
       this._fit();
     }
@@ -662,7 +684,15 @@
         this._go(0, 'keyboard');
       } else if (key === 'F11') {
         e.preventDefault();
-        this._toggleFullscreen();
+        if (this._isFullscreen()) {
+          this._keyboardFullscreen = false;
+          if (this._fullscreenElement()) this._toggleFullscreen();
+          else this._syncFullscreenState();
+        } else {
+          this._keyboardFullscreen = true;
+          this._syncFullscreenState();
+          this._toggleFullscreen();
+        }
       } else if (/^[0-9]$/.test(key)) {
         // 1..9 jump to that slide; 0 jumps to 10.
         const n = key === '0' ? 9 : parseInt(key, 10) - 1;
