@@ -568,7 +568,13 @@
       this._canvas.style.transform = `scale(${s})`;
     }
 
-    _onResize() { this._fit(); }
+    _onResize() {
+      if (!this._fullscreenElement() && this._keyboardFullscreen && !this._isNativeFullscreenLike()) {
+        this._keyboardFullscreen = false;
+      }
+      this._syncFullscreenState();
+      this._fit();
+    }
 
     _onMouseMove() {
       // Keep overlay visible while mouse moves; hide after idle.
@@ -609,9 +615,21 @@
       return document.fullscreenElement || document.webkitFullscreenElement || null;
     }
 
+    _isNativeFullscreenLike() {
+      const sw = screen.width || 0;
+      const sh = screen.height || 0;
+      if (!sw || !sh) return false;
+      const innerMatches = Math.abs(window.innerWidth - sw) <= 2 &&
+        Math.abs(window.innerHeight - sh) <= 2;
+      const outerMatches = Math.abs(window.outerWidth - sw) <= 2 &&
+        Math.abs(window.outerHeight - sh) <= 2;
+      return innerMatches && outerMatches;
+    }
+
     _isFullscreen() {
       const el = this._fullscreenElement();
       return this._keyboardFullscreen ||
+        this._isNativeFullscreenLike() ||
         el === this ||
         el === document.documentElement ||
         (el && this.contains(el));
